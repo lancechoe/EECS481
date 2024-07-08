@@ -1,0 +1,20 @@
+#!/bin/bash
+
+cp wireworld-original.c wireworld-copy.c
+
+for i in $*
+do
+    patch -p0 wireworld-copy.c < patch.$i
+done
+
+gcc -c wireworld-copy.c
+
+# for i in $* ; do
+#     patch -p0 -R wireworld-original.c < patch.$i
+# done
+
+if [ "$?" == 0 ]; then
+    exit 0
+else
+    exit 1
+fi
